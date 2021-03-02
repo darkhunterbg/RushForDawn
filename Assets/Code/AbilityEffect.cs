@@ -10,6 +10,7 @@ namespace Assets.Code
 	{
 		public int DamageDealt;
 		public int BlockGained;
+		public Actor LastTarget;
 	}
 
 	[Serializable]
@@ -27,7 +28,7 @@ namespace Assets.Code
 
 			switch (Type) {
 				case EffectType.DealDamage: context.DamageDealt += target.DealDamage(DamageScale(user, Value)); break;
-				case EffectType.Block: context.BlockGained += target.GainBlock(Value); break;
+				case EffectType.Block: context.BlockGained += target.GainBlock(BlockScale(user,Value)); break;
 				case EffectType.ModifyActionPoints: target.ActionPoints += Value; break;
 				case EffectType.DealDamageHealthScaled: context.DamageDealt += target.DealDamage(DamageScale(user, user.MissingHealth * Value)); break;
 				case EffectType.AddBlockFromDamage:
@@ -43,20 +44,24 @@ namespace Assets.Code
 				default:
 					throw new Exception($"Unknown effect type {Type}");
 			}
-
-
 		}
 
 		private int DamageScale(Actor user, int damage)
 		{
+			damage += user.Strength;
+
 			if (user.ActiveBuffs.Any(v => v.Key.Weak)) {
 				return UnityEngine.Mathf.CeilToInt((damage * 75) / 100);
 			} else {
 				return damage;
 			}
 		}
+		private int BlockScale(Actor user, int block)
+		{
+			return block + user.Dexterity;
+		}
 
-		public IEnumerable<Actor> GetEffectTarget(Actor user, Actor selection)
+		public IEnumerable<Actor> GetEffectTarget(Actor user, Actor selection, AbilityExecutionContext context)
 		{
 			switch (Target) {
 				case EffectTarget.Target: yield return selection; break;
@@ -98,6 +103,11 @@ namespace Assets.Code
 
 						foreach (var e in user.GetAllies())
 							yield return e;
+
+						break;
+					}
+				case EffectTarget.LastTarget: {
+						yield return context.LastTarget;
 
 						break;
 					}

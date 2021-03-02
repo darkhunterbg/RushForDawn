@@ -16,20 +16,32 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 731506372577491277, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: m_Size.x
+      value: 5.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 731506372577491277, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: m_Size.y
+      value: 5.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 731506372577491277, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 9de4f7538e3ad9345adddd4329ba37f1, type: 3}
     - target: {fileID: 731506372577491277, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_Color.b
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 731506372577491277, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_Color.g
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 731506372577491277, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_Color.r
-      value: 0.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 731506372577491277, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1050720100840192986, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -73,11 +85,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3817804558307279222, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.45
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3817804558307279222, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.45
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3817804558307279222, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -105,7 +117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019714, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_Name
-      value: Spider Variant
+      value: Spider Weak Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019717, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_RootOrder
@@ -156,20 +168,36 @@ PrefabInstance:
       value: Spider
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: Strength
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: Dexterity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: MaxHealth
-      value: 1
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: ScrapReward
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: CurrentHealth
-      value: 40
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: AbilityDefinisions.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: AbilityDefinisions.Array.data[0]
       value: 
-      objectReference: {fileID: 4614675982850764780, guid: 2377637ead149cc4d842d455fa72eb08, type: 3}
+      objectReference: {fileID: 4614675982850764780, guid: 946e514cf8a30c84e89d22441901b534, type: 3}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: AbilityDefinisions.Array.data[1]
+      value: 
+      objectReference: {fileID: 4614675982850764780, guid: 6c531fb4931922143897ca80f6d477b9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}

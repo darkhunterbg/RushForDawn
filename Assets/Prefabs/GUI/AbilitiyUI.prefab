@@ -211,8 +211,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 7551378218961688492}
   Button: {fileID: 7551378219754518227}
-  Ability: {fileID: 0}
-  Disable: 0
+  ButtonImage: {fileID: 7551378219754518226}
+  NormalColor: {r: 1, g: 1, b: 1, a: 1}
+  InvertedColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  Toggled: 0
+  Mode: 0
 --- !u!1 &7551378219754518225
 GameObject:
   m_ObjectHideFlags: 0

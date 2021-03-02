@@ -68,8 +68,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: MaxHealth
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: CurrentHealth
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: AbilityDefinisions.Array.size

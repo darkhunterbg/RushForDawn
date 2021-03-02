@@ -26,13 +26,13 @@ namespace Assets.Code
 
 		public float EffectDelay = 0;
 
-
 		public AbilityTargetGeneratorType TargetGenerator;
 
 		public List<AbilityEffect> Effects;
 
 		[Header("Other")]
 		public Actor User;
+
 
 
 		public void Awake()
@@ -93,7 +93,7 @@ namespace Assets.Code
 
 		public void ExecuteAbility(Actor selection, Action endCallback)
 		{
-			_context = new AbilityExecutionContext();
+
 
 			User.ActionPoints -= ActionPointsCost;
 
@@ -105,16 +105,18 @@ namespace Assets.Code
 
 		private void ApplyEffect(Actor selection)
 		{
+			_context = new AbilityExecutionContext();
 
 			int thorns = 0;
 
 			foreach (var effect in Effects) {
-				var targets = effect.GetEffectTarget(User, selection);
+				var targets = effect.GetEffectTarget(User, selection, _context);
 
 
 				foreach (var target in targets) {
 					effect.Apply(User, target, _context);
 					thorns += target.ActiveBuffs.Keys.Sum(s => s.TakeDamageWhenAttacked);
+					_context.LastTarget = target;
 				}
 			}
 

@@ -17,6 +17,8 @@ namespace Assets.Code
 		public UIAbility AbilityPrefab;
 		public Button EndTurnButton;
 		public Text ScrapText;
+		public GameObject AbilitySelectedRoot;
+		public TMPro.TMP_Text AbilitySelectedName;
 
 		public BattleWonScreen VictoryScreen;
 
@@ -197,6 +199,9 @@ namespace Assets.Code
 				GameController.Instance.Scrap += actor.ScrapReward;
 
 			}
+			else if(SelectedActor == actor) {
+				SetSelection(null);
+			}
 		}
 
 		private bool GameOverCheck()
@@ -253,6 +258,11 @@ namespace Assets.Code
 
 		private void AbilityClicked(UIAbility ability)
 		{
+			foreach (var a in Abilities)
+				a.Toggled = false;
+			ability.Toggled = true;
+
+
 			ToPlayerAbilitySelectedState(ability.Ability);
 		}
 
@@ -264,6 +274,10 @@ namespace Assets.Code
 			} else if (State == BattleGameStateType.AbilitySelected) {
 				if (SelectedAbility.IsValidTarget(selection)) {
 					ExecuteAbility(SelectedAbility, selection);
+				}
+				else if (PlayerParty.Contains(selection)) {
+					ToIdleState();
+					SetSelection(selection);
 				}
 			}
 		}
@@ -358,8 +372,13 @@ namespace Assets.Code
 
 			SelectedAbility = null;
 
+			AbilitySelectedRoot.gameObject.SetActive(false);
+
 			foreach (var a in Actors)
 				a.SetNormalState();
+
+			foreach (var a in Abilities)
+				a.Toggled = false;
 
 			SelectedActor?.SetSelectedState();
 		}
@@ -369,6 +388,9 @@ namespace Assets.Code
 			State = BattleGameStateType.AbilitySelected;
 
 			SelectedAbility = ability;
+
+			AbilitySelectedName.text = ability.Name.ToUpper();
+			AbilitySelectedRoot.gameObject.SetActive(true);
 
 			foreach (var actor in Actors) {
 				if (SelectedAbility.IsValidTarget(actor))

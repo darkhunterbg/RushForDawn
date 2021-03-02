@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4421221310245843376}
   - component: {fileID: 4614675982850764780}
   m_Layer: 0
-  m_Name: Overclock
+  m_Name: Sneko-Bite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,20 +43,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ee2728eedea0d41a82ae14e7bd0ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: bab8e8e7b804dda419bacf9ee7476d49, type: 3}
-  Name: Overclock
-  Cost: 2
-  ScrapCost: 10
-  Description: Grant ally extra [Action] this turn.
-  Replaces: Overclock
+  Icon: {fileID: 21300000, guid: 2034ac08df8c5744a9115cf43e37db7b, type: 3}
+  Name: Attack
+  Cost: 0
+  ScrapCost: 4
+  Description: Deal {0} damage to a single enemy.
+  Replaces: 
   ActionPointsCost: 1
-  Class: 3
-  ExecuteCount: 1
-  Clip: {fileID: 7400000, guid: a80cbe5eeffdd534ca3dbbfe71cebc16, type: 2}
-  EffectDelay: 0.3
-  TargetGenerator: 4
+  Class: 0
+  ExecuteCount: 2
+  Clip: {fileID: 7400000, guid: 5c3e731154594d243a0e388ca8ddc674, type: 2}
+  EffectDelay: 0.06
+  TargetGenerator: 2
   Effects:
-  - Type: 2
+  - Type: 0
     Target: 0
+    Value: 0
+  - Type: 4
+    Target: 1
     Value: 1
   User: {fileID: 0}

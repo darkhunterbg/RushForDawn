@@ -14,6 +14,13 @@ namespace Assets.Code
 		public Image Icon;
 		public Button Button;
 
+		public Image ButtonImage;
+
+		public Color NormalColor;
+		public Color InvertedColor;
+
+		public bool Toggled;
+
 		public Ability Ability { get; private set; }
 
 		public bool Disable { get; set; } = false;
@@ -43,6 +50,8 @@ namespace Assets.Code
 				Button.interactable = !Disable;
 				return;
 			}
+			ButtonImage.color = Toggled ? InvertedColor : NormalColor;
+			Icon.color = Toggled ? NormalColor : InvertedColor;
 
 			Button.interactable = !Disable && Ability.User.PlayerControllable && Ability.CanExecute(BattleGameState.Instance.Actors);
 		}

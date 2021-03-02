@@ -34,6 +34,10 @@ namespace Assets.Code
 		public int MaxHealth;
 		public int MissingHealth => MaxHealth - CurrentHealth;
 
+		public int Strength;
+		public int Dexterity;
+
+
 		public List<Ability> AbilityDefinisions;
 
 		public List<Ability> Abilities { get; private set; } = new List<Ability>();

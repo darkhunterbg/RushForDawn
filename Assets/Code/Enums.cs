@@ -45,6 +45,7 @@ namespace Assets.Code
 		AllEnemies,
 		AllAllies,
 		RandomAlly,
+		LastTarget,
 	}
 
 	public enum ClassType
