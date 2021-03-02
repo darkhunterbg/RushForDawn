@@ -18,6 +18,13 @@ namespace Assets.Code
 
 		}
 
+		public enum AbilityTooltipMode
+		{
+			Default,
+			Shop,
+			ShopOwned
+		}
+
 		public TMPro.TMP_Text TitleText;
 		public TMPro.TMP_Text ContentText;
 
@@ -39,13 +46,13 @@ namespace Assets.Code
 			_canvas = GetComponentInParent<Canvas>();
 		}
 
-		public void ShowAbility(Ability ability, bool shopMode)
+		public void ShowAbility(Ability ability, AbilityTooltipMode mode)
 		{
 			TitleText.text = ability.Name;
 			string text = string.Format(ability.Description, ability.Effects.Select(s => s.Value.ToString()).ToArray());
 			
 
-			if (shopMode) {
+			if (mode== AbilityTooltipMode.Shop) {
 
 				if(ability.Class!= ClassType.None)
 					text = $"<color=#{ColorUtility.ToHtmlStringRGB(ClassColor)}>{ability.Class}</color> ability\n\n{text}";
@@ -54,6 +61,11 @@ namespace Assets.Code
 					text += $"\n\n Replaces any <color=#{ColorUtility.ToHtmlStringRGB(ReplaceColor)}>{ability.Replaces}</color> ability.";
 				}
 				text += $"\n\n Cost {ability.ScrapCost} [Scrap].";
+			}
+			else if( mode == AbilityTooltipMode.ShopOwned) {
+				if (!string.IsNullOrEmpty(ability.Replaces)) {
+					text = $"<color=#{ColorUtility.ToHtmlStringRGB(ReplaceColor)}>{ability.Replaces}</color> ability.\n\n{text}";
+				}
 			}
 
 			foreach (var word in Keywords) {

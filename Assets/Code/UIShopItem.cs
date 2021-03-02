@@ -11,14 +11,16 @@ namespace Assets.Code
 	{
 		public UIAbility Ability;
 		public TMPro.TMP_Text Cost;
+		public TMPro.TMP_Text Name;
 
 		public Action<UIShopItem> OnItemBought;
 
 		public void Init(Ability ability)
 		{
 			Ability.SetAbility(ability);
-			Cost.text = ability.ScrapCost.ToString();
-			Ability.ShopMode = true;
+			Cost.text = $"{ability.ScrapCost} SCRAP";
+			Name.text = ability.Name.ToUpper();
+			Ability.Mode = Tooltip.AbilityTooltipMode.Shop;
 
 			Ability.OnClicked += Ability_OnClicked;
 		}

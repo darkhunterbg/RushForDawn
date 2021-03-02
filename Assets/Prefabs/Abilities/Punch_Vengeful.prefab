@@ -47,7 +47,8 @@ MonoBehaviour:
   Name: Vengeful Punch
   Cost: 3
   ScrapCost: 10
-  Description: Deal {0} damage. Deals {1}  additional damage for each [Health] missing.
+  Description: Deal {0} damage to a single enemy. Deals {1}  additional damage for
+    each [Health] missing.
   Replaces: Punch
   ActionPointsCost: 1
   Class: 1

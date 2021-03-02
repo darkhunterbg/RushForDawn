@@ -47,7 +47,7 @@ MonoBehaviour:
   Name: Protect Process
   Cost: 4
   ScrapCost: 10
-  Description: Friendly target has all damage reduced to 1 untill next turn.
+  Description: Single friendly target has all damage reduced to 1 untill next turn.
   Replaces: Process
   ActionPointsCost: 1
   Class: 3

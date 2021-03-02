@@ -46,8 +46,9 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 3e06dfd7747196043a061ca3a0c5a328, type: 3}
   Name: Aggresive Overclock
   Cost: 3
-  Description: Grant ally extra {0} [Action] this turn. Their next {0} [Action] costs
-    1 less this turn.
+  ScrapCost: 10
+  Description: Grant single ally extra {0} [Action] this turn. Their next {0} [Action]
+    costs 1 less this turn.
   Replaces: Overclock
   ActionPointsCost: 1
   Class: 3

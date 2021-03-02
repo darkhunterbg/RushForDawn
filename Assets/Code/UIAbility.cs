@@ -18,7 +18,7 @@ namespace Assets.Code
 
 		public bool Disable { get; set; } = false;
 
-		public bool ShopMode = false;
+		public Tooltip.AbilityTooltipMode Mode;
 
 		public event Action<UIAbility> OnClicked = null;
 
@@ -39,7 +39,7 @@ namespace Assets.Code
 
 		public void Update()
 		{
-			if (ShopMode) {
+			if (Mode != Tooltip.AbilityTooltipMode.Default) {
 				Button.interactable = !Disable;
 				return;
 			}
@@ -50,7 +50,7 @@ namespace Assets.Code
 		public void OnPointerEnter(PointerEventData eventData)
 		{
 
-			GameController.Instance.Tooltip.ShowAbility(Ability, ShopMode);
+			GameController.Instance.Tooltip.ShowAbility(Ability, Mode);
 		}
 
 		public void OnPointerExit(PointerEventData eventData)

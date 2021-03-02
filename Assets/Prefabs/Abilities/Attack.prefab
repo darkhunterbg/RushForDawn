@@ -47,7 +47,7 @@ MonoBehaviour:
   Name: Attack
   Cost: 1
   ScrapCost: 4
-  Description: Deal {0} damage to a single target.
+  Description: Deal {0} damage to a single enemy.
   Replaces: 
   ActionPointsCost: 1
   Class: 0

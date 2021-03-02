@@ -28,6 +28,8 @@ namespace Assets.Code
 		public Action<Actor> OnDismantled;
 		public Action<Actor,int> OnRepaired;
 
+		public GameObject AbilitiesRoot;
+
 		public void Awake()
 		{
 			Repair1Button.onClick.AddListener(() => Repair(1));
@@ -90,6 +92,17 @@ namespace Assets.Code
 			Repair5Button.interactable = Actor.MissingHealth >= 5 && GameController.Instance.Scrap >= 5;
 			Repair10Button.interactable = Actor.MissingHealth >= 10 && GameController.Instance.Scrap >= 10;
 			RepairAllButton.interactable = Actor.MissingHealth > 0 && GameController.Instance.Scrap >= Actor.MissingHealth;
+
+			var abilities = AbilitiesRoot.GetComponentsInChildren<UIAbility>(includeInactive: true);
+			for(int i = 0; i < Actor.AbilityDefinisions.Count; ++i) {
+				abilities[i].SetAbility(Actor.AbilityDefinisions[i]);
+				abilities[i].gameObject.SetActive(true);
+				abilities[i].Mode = Tooltip.AbilityTooltipMode.ShopOwned;
+				abilities[i].Disable = true;
+			}
+			for(int j= Actor.Abilities.Count;j< abilities.Length; ++j) {
+				abilities[j].gameObject.SetActive(false);
+			}
 		}
 	}
 }

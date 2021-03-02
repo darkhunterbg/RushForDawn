@@ -46,7 +46,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: cc9a6d8ef6694d1459d79071c4ad5976, type: 3}
   Name: Focused Beam
   Cost: 2
-  Description: Deal {0} damage to a single target.
+  ScrapCost: 10
+  Description: Deal {0} damage to a single enemy.
   Replaces: Beam
   ActionPointsCost: 1
   Class: 1
