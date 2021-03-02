@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 3c12d1644a6d2c34c8bcb90d7daa8e89, type: 3}
-  Name: Protect Process
+  Name: Firewall Process
   Cost: 3
+  ScrapCost: 10
   Description: All friendly targets gain {0} [Block]. Enemies take 3 damage when
     attacking friendly targets this turn.
   Replaces: Process

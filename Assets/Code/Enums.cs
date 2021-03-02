@@ -11,6 +11,7 @@ namespace Assets.Code
 		PartyIdle,
 		AbilitySelected,
 		AbilityExecuting,
+		GameOver,
 	}
 
 	public enum AbilityTargetGeneratorType

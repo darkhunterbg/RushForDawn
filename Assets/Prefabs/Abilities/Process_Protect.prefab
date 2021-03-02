@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: b272dca750c09ee4daab19516f497f4f, type: 3}
-  Name: Firewall Process
+  Name: Protect Process
   Cost: 4
+  ScrapCost: 10
   Description: Friendly target has all damage reduced to 1 untill next turn.
   Replaces: Process
   ActionPointsCost: 1

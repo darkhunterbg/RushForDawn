@@ -21,7 +21,11 @@ namespace Assets.Code
 
 		public GameObject HUD;
 
+		public Sprite Icon;
+
 		[Header("Data")]
+
+		public ClassType Class;
 
 		public string Name;
 		public int ScrapReward = 10;
@@ -35,7 +39,6 @@ namespace Assets.Code
 		public List<Ability> Abilities { get; private set; } = new List<Ability>();
 
 		public SpriteRenderer SpriteRenderer;
-
 
 		public Dictionary<Buff, int> ActiveBuffs { get; private set; } = new Dictionary<Buff, int>();
 
@@ -133,7 +136,8 @@ namespace Assets.Code
 			ActionPoints = 0;
 		}
 
-		public void OnEnable()
+
+		public void Init()
 		{
 			foreach (var a in Abilities)
 				Destroy(a.gameObject);
@@ -218,7 +222,7 @@ namespace Assets.Code
 
 			if (_damageTimer > 0) {
 				DamageText.gameObject.SetActive(true);
-				DamageText.alpha = _damageTimer / 1.5f;
+				DamageText.alpha = _damageTimer;
 				DamageText.text = _damageAccumulator > 0 ? $"-{_damageAccumulator}" : "0";
 				_damageTimer -= Time.deltaTime;
 			} else if (DamageText.gameObject.activeSelf) {
@@ -228,7 +232,7 @@ namespace Assets.Code
 
 			if (_blockTimer > 0) {
 				BlockGainText.gameObject.SetActive(true);
-				BlockGainText.alpha = _blockTimer / 1.5f;
+				BlockGainText.alpha = _blockTimer;
 				BlockGainText.text = _blockAccumulator > 0 ? $"+{_blockAccumulator}" : "0";
 				_blockTimer -= Time.deltaTime;
 			} else if (BlockGainText.gameObject.activeSelf) {
@@ -285,7 +289,6 @@ namespace Assets.Code
 
 			UpdateBuffsGUI();
 		}
-
 
 		public void RefreshBuffs()
 		{

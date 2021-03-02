@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4421221310245843376}
   - component: {fileID: 4614675982850764780}
   m_Layer: 0
-  m_Name: Punch_Overlocked
+  m_Name: Punch_Vengeful
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 4f5b381d75c6ef54491cc5d210f77a01, type: 3}
-  Name: Overlocked Punch
+  Name: Vengeful Punch
   Cost: 3
+  ScrapCost: 10
   Description: Deal {0} damage. Deals {1}  additional damage for each [Health] missing.
   Replaces: Punch
   ActionPointsCost: 1

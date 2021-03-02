@@ -24,6 +24,8 @@ namespace Assets.Code
 
 		public List<Buff> Buffs;
 
+		public List<Ability> ShopAbilities;
+
 		public void NewBattle()
 		{
 			++Level;
@@ -42,6 +44,8 @@ namespace Assets.Code
 		// Start is called before the first frame update
 		void Start()
 		{
+			UnityEngine.Random.InitState(System.Environment.TickCount);
+
 			Tooltip.gameObject.SetActive(false);
 
 			if (Party.Count == 0) {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,8 +18,8 @@ namespace Assets.Code
 		public Button EndTurnButton;
 		public Text ScrapText;
 
-		public GameObject VictoryScreen;
-		public Button NextBattleButton;
+		public BattleWonScreen VictoryScreen;
+
 
 		public List<Actor> PlayerParty { get; private set; }
 		public List<Actor> EnemyParty { get; private set; }
@@ -50,7 +51,6 @@ namespace Assets.Code
 			{
 				EndTurn();
 			});
-			NextBattleButton.onClick.AddListener(NextBattleClicked);
 		}
 
 		public void OnEnable()
@@ -87,7 +87,7 @@ namespace Assets.Code
 					}
 					p.transform.SetParent(PlayerRoot.transform, worldPositionStays: false);
 					p.gameObject.SetActive(true);
-
+					p.Init();
 					PlayerParty.Add(p);
 				}
 
@@ -119,7 +119,7 @@ namespace Assets.Code
 				p.transform.localPosition = new Vector3(i / 3 * 3f- 0.5f, (i % 3 - 1) * 2.75f + y, 0);
 				p.SetToMaxHP();
 				p.gameObject.SetActive(true);
-
+				p.Init();
 				EnemyParty.Add(p);
 
 
@@ -190,10 +190,6 @@ namespace Assets.Code
 			}
 		}
 
-		public void NextBattleClicked()
-		{
-			GameController.Instance.NewBattle();
-		}
 
 		public void OnActorDied(Actor actor)
 		{
@@ -207,11 +203,24 @@ namespace Assets.Code
 		{
 
 			if (EnemyParty.All(p => !p.IsAlive)) {
-				VictoryScreen.gameObject.SetActive(true);
-				return true;
+				if (!VictoryScreen.gameObject.activeInHierarchy) {
+					State = BattleGameStateType.GameOver;
+
+					StartCoroutine(GameOverCrt());
+					return true;
+				}
+			
 			}
 
 			return false;
+		}
+
+		private IEnumerator GameOverCrt()
+		{
+			yield return new WaitForSeconds(1.6f);
+
+			VictoryScreen.Init();
+			VictoryScreen.gameObject.SetActive(true);
 		}
 
 		public void SetSelection(Actor selection)
@@ -382,7 +391,7 @@ namespace Assets.Code
 
 		private void Update()
 		{
-			ScrapText.text = $"Scrap: {GameController.Instance.Scrap}";
+			ScrapText.text = $"SCRAP: {GameController.Instance.Scrap}";
 
 			if (VictoryScreen.gameObject.activeInHierarchy)
 				return;

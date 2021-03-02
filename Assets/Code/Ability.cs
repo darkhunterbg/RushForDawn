@@ -13,6 +13,7 @@ namespace Assets.Code
 		public Sprite Icon;
 		public string Name;
 		public int Cost;
+		public int ScrapCost = 10;
 		public string Description;
 
 		public string Replaces;
@@ -41,6 +42,9 @@ namespace Assets.Code
 
 		public int GetActualCost()
 		{
+			if (User == null)
+				return Cost;
+
 			var costBuff = User.ActiveBuffs.Keys.FirstOrDefault(b => b.AbilityCostReduction > 0);
 			if (costBuff != null)
 				return Math.Max(0, Cost - costBuff.AbilityCostReduction);

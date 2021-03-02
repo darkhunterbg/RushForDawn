@@ -25,6 +25,9 @@ namespace Assets.Code
 		public GameObject HealthCostRoot;
 
 
+		public Color ReplaceColor;
+		public Color ClassColor;
+
 		public List<Keyword> Keywords;
 
 		private Canvas _canvas;
@@ -36,10 +39,23 @@ namespace Assets.Code
 			_canvas = GetComponentInParent<Canvas>();
 		}
 
-		public void ShowAbility(Ability ability)
+		public void ShowAbility(Ability ability, bool shopMode)
 		{
 			TitleText.text = ability.Name;
 			string text = string.Format(ability.Description, ability.Effects.Select(s => s.Value.ToString()).ToArray());
+			
+
+			if (shopMode) {
+
+				if(ability.Class!= ClassType.None)
+					text = $"<color=#{ColorUtility.ToHtmlStringRGB(ClassColor)}>{ability.Class}</color> ability\n\n{text}";
+
+				if (!string.IsNullOrEmpty(ability.Replaces)) {
+					text += $"\n\n Replaces any <color=#{ColorUtility.ToHtmlStringRGB(ReplaceColor)}>{ability.Replaces}</color> ability.";
+				}
+				text += $"\n\n Cost {ability.ScrapCost} [Scrap].";
+			}
+
 			foreach (var word in Keywords) {
 				text = text.Replace($"[{word.Word}]", $"<color=#{ColorUtility.ToHtmlStringRGB(word.Color)}>{word.Word}</color>");
 			}
@@ -99,8 +115,15 @@ namespace Assets.Code
 	Input.mousePosition, _canvas.worldCamera,
 	out movePos);
 
-			transform.position = _canvas.transform.TransformPoint(movePos + new Vector2(size.x / 2, size.y / 2) + new Vector2(16, -16));// - new Vector3(0, 2, 0);
+			var set = movePos + new Vector2(0, 0) + new Vector2(32, 16);
 
+			if (set.y > 500)
+				set.y = 500;
+
+			if (set.y < -180)
+				set.y = -180;
+
+			transform.position = _canvas.transform.TransformPoint(set);
 		}
 
 	}
