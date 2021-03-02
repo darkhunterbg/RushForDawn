@@ -8,6 +8,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 718206848382795716, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 718206848382795716, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 718206848382795716, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
       objectReference: {fileID: 0}
@@ -26,7 +34,7 @@ PrefabInstance:
     - target: {fileID: 731506372577491277, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9de4f7538e3ad9345adddd4329ba37f1, type: 3}
+      objectReference: {fileID: 21300000, guid: a782b35c2c4d1f6458f57cce68333654, type: 3}
     - target: {fileID: 731506372577491277, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -49,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1050720100840192986, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.526
+      value: 1.92
       objectReference: {fileID: 0}
     - target: {fileID: 1111184047031366558, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -59,13 +67,29 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.502
       objectReference: {fileID: 0}
+    - target: {fileID: 1737552975254595346, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.009
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737552975254595347, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: m_text
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737552975254595347, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: m_margin.z
+      value: 9.566246
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737552975254595347, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1737552976184506793, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 1737552976184506793, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.46
+      value: -1.84
       objectReference: {fileID: 0}
     - target: {fileID: 3673373679887243876, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_fontSize
@@ -105,7 +129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3817804558307279222, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3817804558307279222, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -113,11 +137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3817804558307279222, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019714, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_Name
-      value: Spider Weak Variant
+      value: Spider Boss Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019717, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_RootOrder
@@ -165,39 +189,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: Name
-      value: Spidero
+      value: Mama Spidero
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: Strength
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
-      propertyPath: Dexterity
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
-      propertyPath: MaxHealth
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
-      propertyPath: ScrapReward
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: Dexterity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: MaxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: AIPriority
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: ScrapReward
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: CurrentHealth
-      value: 15
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: AbilityDefinisions.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: AbilityDefinisions.Array.data[0]
       value: 
-      objectReference: {fileID: 4614675982850764780, guid: 946e514cf8a30c84e89d22441901b534, type: 3}
+      objectReference: {fileID: 4614675982850764780, guid: 0d058bb90bf65cf45912faa6d99ab3d5, type: 3}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: AbilityDefinisions.Array.data[1]
       value: 
-      objectReference: {fileID: 4614675982850764780, guid: 6c531fb4931922143897ca80f6d477b9, type: 3}
+      objectReference: {fileID: 4614675982850764780, guid: c443601b796c5d94facb1428629a0782, type: 3}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: AbilityDefinisions.Array.data[2]
+      value: 
+      objectReference: {fileID: 4614675982850764780, guid: 7e373b94ecea5ba4581012f15fdb165b, type: 3}
+    - target: {fileID: 8393962226950894265, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.733
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}

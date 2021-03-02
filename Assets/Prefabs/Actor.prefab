@@ -184,16 +184,22 @@ MonoBehaviour:
   BuffPrefab: {fileID: 9203300684589104112, guid: 0a2dfb2cabcdd974b88d37567a83b9ba, type: 3}
   BuffRoot: {fileID: 8393962226950894265}
   HUD: {fileID: 8404205724375439456}
+  Icon: {fileID: 0}
+  Class: 0
   Name: Actor
   ScrapReward: 10
+  AIPriority: 10
   CurrentHealth: 0
   MaxHealth: 20
+  Strength: 0
+  Dexterity: 0
   AbilityDefinisions: []
   SpriteRenderer: {fileID: 731506372577491277}
   ActionPointsPerTurn: 1
   ActionPoints: 0
   Block: 0
   PlayerControllable: 1
+  ImmuneToCost: 0
 --- !u!61 &5025472629732019718
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -239,6 +245,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5025472629732019717}
     m_Modifications:
+    - target: {fileID: 1865149283228626775, guid: 32cf91b61a67b9149bb29015305f7a04, type: 3}
+      propertyPath: m_text
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865149283228626775, guid: 32cf91b61a67b9149bb29015305f7a04, type: 3}
+      propertyPath: m_margin.z
+      value: 9.608638
+      objectReference: {fileID: 0}
     - target: {fileID: 1865149284043059692, guid: 32cf91b61a67b9149bb29015305f7a04, type: 3}
       propertyPath: m_Name
       value: ActorGUI
@@ -286,6 +300,10 @@ PrefabInstance:
     - target: {fileID: 1865149284043059693, guid: 32cf91b61a67b9149bb29015305f7a04, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467339533399620349, guid: 32cf91b61a67b9149bb29015305f7a04, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.679
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32cf91b61a67b9149bb29015305f7a04, type: 3}

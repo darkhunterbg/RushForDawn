@@ -24,6 +24,8 @@ namespace Assets.Code
 
 		public int Level { get; private set; } = 0;
 
+		public int TestLevel = 0;
+
 		public int Scrap = 0;
 		public BattleGameState BattleState;
 
@@ -100,7 +102,20 @@ namespace Assets.Code
 				}
 			}
 
-			NewBattle();
+			if (TestLevel > 0) {
+				Level = TestLevel - 1;
+				Scrap = 0;
+				for (int i = 0; i < TestLevel ; ++i) {
+					Scrap += Levels[i].Budget;
+				}
+				Scrap /= 2;
+
+				BattleState.gameObject.SetActive(true);
+				BattleState.VictoryScreen.Init();
+				BattleState.VictoryScreen.gameObject.SetActive(true);
+
+			} else
+				NewBattle();
 		}
 
 		// Update is called once per frame

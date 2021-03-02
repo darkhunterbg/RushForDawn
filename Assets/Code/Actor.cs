@@ -30,6 +30,8 @@ namespace Assets.Code
 		public string Name;
 		public int ScrapReward = 10;
 
+		public int AIPriority = 10;
+
 		public int CurrentHealth;
 		public int MaxHealth;
 		public int MissingHealth => MaxHealth - CurrentHealth;
@@ -66,6 +68,8 @@ namespace Assets.Code
 		private int _blockAccumulator = 0;
 
 		private float _deathTimer = 0.0f;
+
+		public bool ImmuneToCost = false;
 
 		public int DealDamage(int damage, bool ignoreBlock = false)
 		{
@@ -219,7 +223,7 @@ namespace Assets.Code
 
 		public void Update()
 		{
-			HealthText.text = $"{CurrentHealth}/{MaxHealth}";
+			HealthText.text = $"{CurrentHealth}";
 			BlockText.text = Block.ToString();
 
 

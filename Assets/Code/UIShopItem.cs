@@ -34,7 +34,7 @@ namespace Assets.Code
 		public void Update()
 		{
 			Ability.Disable = GameController.Instance.Scrap < Ability.Ability.ScrapCost ||
-				!(BattleGameState.Instance.PlayerParty.Any(p => p.IsAlive && p.Class == Ability.Ability.Class));
+				!(GameController.Instance.Party.Any(p => p.IsAlive && p.Class == Ability.Ability.Class));
 		}
 	}
 }

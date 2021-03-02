@@ -19,11 +19,11 @@ namespace Assets.Code
 
 		public GameObject RepairItemsRoot;
 
+		public Text DescriptionText;
 
 		private List<Ability> _shopAbilities;
 
 		public int ShowItems = 5;
-
 
 		public void Awake()
 		{
@@ -43,17 +43,21 @@ namespace Assets.Code
 		{
 			UpgradesScreen.gameObject.SetActive(false);
 
-			var party = GameController.Instance.Party.Where(p => p.IsAlive).ToList();
-			var invalidClass = GameController.Instance.Party.Where(p => !p.IsAlive).Select(s => s.Class).ToList();
+			int hoursLeft = GameController.Instance.Levels.Count - GameController.Instance.Level;
+
+			DescriptionText.text = hoursLeft > 1 ? $"{hoursLeft} HOURS LEFT UNTIL DAWN" : "LAST HOUR BEFORE DAWN";
+
+			var party = GameController.Instance.Party.ToList();
+			//var invalidClass = party.Select(s => s.Class).ToList();
 
 			var validAbilities = GameController.Instance.ShopAbilities.Where
 				(s => party.All(p => !p.AbilityDefinisions.Any(q => q.Name == s.Name))).ToList();
 
-			validAbilities.RemoveAll(c => invalidClass.Contains(c.Class));
+			//validAbilities.RemoveAll(c => invalidClass.Contains(c.Class));
 
 			_shopAbilities = new List<Ability>();
 
-			for (int i = 0; i < 5; ++i) {
+			for (int i = 0; i < ShowItems; ++i) {
 				if (validAbilities.Count == 0)
 					break;
 
@@ -78,9 +82,7 @@ namespace Assets.Code
 				repairControllers[i].gameObject.SetActive(true);
 				repairControllers[i].OnRepaired = OnRepaired;
 				repairControllers[i].OnDismantled = OnDismantled;
-			}
-			for (int i = party.Count; i < repairControllers.Length; ++i) {
-				repairControllers[i].gameObject.SetActive(false);
+				repairControllers[i].OnReconstruct = OnReconstructed;
 			}
 		}
 
@@ -94,7 +96,7 @@ namespace Assets.Code
 			GameController.Instance.Scrap -= item.Ability.Ability.ScrapCost;
 
 			var actor = GameController.Instance.Party.FirstOrDefault(p => p.Class == item.Ability.Ability.Class);
-	
+
 			if (!string.IsNullOrEmpty(item.Ability.Ability.Replaces)) {
 				actor.AbilityDefinisions.RemoveAll(a => a.Name.Contains(item.Ability.Ability.Replaces));
 			}
@@ -127,18 +129,25 @@ namespace Assets.Code
 
 		private void OnDismantled(Actor actor)
 		{
-			var party = GameController.Instance.Party.Where(p => p.IsAlive).ToList();
+			var repairControllers = RepairItemsRoot.GetComponentsInChildren<UIRepairController>();
+			foreach (var c in repairControllers)
+				c.Refresh();
+			//for (int i = 0; i < party.Count; ++i) {
+			//	repairControllers[i].Init(party[i]);
+			//	repairControllers[i].gameObject.SetActive(true);
+			//	repairControllers[i].OnRepaired = OnRepaired;
+			//	repairControllers[i].OnDismantled = OnDismantled;
+			//}
+			//for (int i = party.Count; i < repairControllers.Length; ++i) {
+			//	repairControllers[i].gameObject.SetActive(false);
+			//}
+		}
 
-			var repairControllers = RepairItemsRoot.GetComponentsInChildren<UIRepairController>(includeInactive: true);
-			for (int i = 0; i < party.Count; ++i) {
-				repairControllers[i].Init(party[i]);
-				repairControllers[i].gameObject.SetActive(true);
-				repairControllers[i].OnRepaired = OnRepaired;
-				repairControllers[i].OnDismantled = OnDismantled;
-			}
-			for (int i = party.Count; i < repairControllers.Length; ++i) {
-				repairControllers[i].gameObject.SetActive(false);
-			}
+		private void OnReconstructed(Actor actor)
+		{
+			var repairControllers = RepairItemsRoot.GetComponentsInChildren<UIRepairController>();
+			foreach (var c in repairControllers)
+				c.Refresh();
 		}
 
 		private void OnRepaired(Actor actor, int value)

@@ -53,6 +53,7 @@ namespace Assets.Code
 			{
 				EndTurn();
 			});
+			AbilitySelectedRoot.SetActive(false);
 		}
 
 		public void OnEnable()
@@ -108,17 +109,19 @@ namespace Assets.Code
 				int onColumns = enemyPartyDef.Count - (i / 3) * 3;
 				if (onColumns > 3)
 					onColumns = 3;
-				float y = 0;
+				float y = 2.75f; ;
 
+				float off = 2.75f;
 
 				if (onColumns == 1) {
 					y = 2.75f;
 				} else if (onColumns == 2) {
-					y = 2.75f / 2.0f;
+					y = 3.5f / 2.0f;
+					off = 3.5f;
 				}
 
 				var p = Instantiate(def, EnemeyRoot.transform);
-				p.transform.localPosition = new Vector3(i / 3 * 3f- 0.5f, (i % 3 - 1) * 2.75f + y, 0);
+				p.transform.localPosition = new Vector3(i / 3 * 3f- 0.5f, (i % 3 - 1) * off + y, 0);
 				p.SetToMaxHP();
 				p.gameObject.SetActive(true);
 				p.Init();
@@ -222,6 +225,8 @@ namespace Assets.Code
 
 		private IEnumerator GameOverCrt()
 		{
+			AbilitySelectedRoot.gameObject.SetActive(false);
+
 			yield return new WaitForSeconds(1.6f);
 
 			VictoryScreen.Init();
@@ -296,11 +301,23 @@ namespace Assets.Code
 
 			ability.User.SetSelectedState();
 
+
+			AbilitySelectedName.text = ability.Name.ToUpper();
+			AbilitySelectedRoot.gameObject.SetActive(true);
+
+			StartCoroutine(ExecuteAbilityCrt(ability, target));
+		}
+
+		private IEnumerator ExecuteAbilityCrt(Ability ability, Actor target)
+		{
+			yield return new WaitForSeconds(0.3f);
 			ability.ExecuteAbility(target, AbilityExecuted);
 		}
 
 		private void AbilityExecuted()
 		{
+			AbilitySelectedRoot.gameObject.SetActive(false);
+
 			if (GameOverCheck())
 				return;
 
@@ -331,7 +348,7 @@ namespace Assets.Code
 
 		private void EnemyAIAct()
 		{
-			var next = EnemyParty.FirstOrDefault(s => s.CanAIAct);
+			var next = EnemyParty.OrderByDescending(s=>s.AIPriority).FirstOrDefault(s => s.CanAIAct);
 			if (next != null) {
 				AIAct(next);
 			} else {

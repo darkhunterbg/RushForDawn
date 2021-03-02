@@ -45,6 +45,9 @@ namespace Assets.Code
 			if (User == null)
 				return Cost;
 
+			if (User.ImmuneToCost)
+				return 0;
+
 			var costBuff = User.ActiveBuffs.Keys.FirstOrDefault(b => b.AbilityCostReduction > 0);
 			if (costBuff != null)
 				return Math.Max(0, Cost - costBuff.AbilityCostReduction);
@@ -157,7 +160,7 @@ namespace Assets.Code
 				}
 			}
 
-			if (Cost > 0) {
+			if (Cost > 0 && !User.ImmuneToCost) {
 				var costBuff = User.ActiveBuffs.Keys.FirstOrDefault(b => b.AbilityCostReduction > 0);
 				if (costBuff == null)
 					User.DealDamage(Cost, ignoreBlock: true);

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 2034ac08df8c5744a9115cf43e37db7b, type: 3}
-  Name: Attack
+  Name: Mega Rage
   Cost: 0
   ScrapCost: 4
   Description: Deal {0} damage to a single enemy.
