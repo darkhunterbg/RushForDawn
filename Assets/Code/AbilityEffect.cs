@@ -19,14 +19,17 @@ namespace Assets.Code
 		public EffectTarget Target;
 		public int Value;
 
+		public bool IsDamageEffect => Type == EffectType.DealDamage || Type == EffectType.DealDamageHealthScaled
+			|| Type == EffectType.DealDamageFromBlock || Type == EffectType.DealDamageUnblockable;
 
 		public void Apply(Actor user, Actor target, AbilityExecutionContext context)
 		{
+
 			switch (Type) {
-				case EffectType.DealDamage: context.DamageDealt += target.DealDamage(Value); break;
+				case EffectType.DealDamage: context.DamageDealt += target.DealDamage(DamageScale(user, Value)); break;
 				case EffectType.Block: context.BlockGained += target.GainBlock(Value); break;
 				case EffectType.ModifyActionPoints: target.ActionPoints += Value; break;
-				case EffectType.DealDamageHealthScaled: context.DamageDealt+= target.DealDamage(user.MissingHealth * Value); break;
+				case EffectType.DealDamageHealthScaled: context.DamageDealt += target.DealDamage(DamageScale(user, user.MissingHealth * Value)); break;
 				case EffectType.AddBlockFromDamage:
 					context.BlockGained += target.GainBlock(Value * context.DamageDealt); break;
 				case EffectType.AddBuff:
@@ -34,9 +37,22 @@ namespace Assets.Code
 					buff.Apply(target);
 					break;
 				case EffectType.DealDamageFromBlock:
-					context.DamageDealt += target.DealDamage(Value * user.Block); break;
+					context.DamageDealt += target.DealDamage(DamageScale(user, Value * user.Block)); break;
+				case EffectType.DealDamageUnblockable:
+					context.DamageDealt += target.DealDamage(DamageScale(user, Value), ignoreBlock: true); break;
 				default:
 					throw new Exception($"Unknown effect type {Type}");
+			}
+
+
+		}
+
+		private int DamageScale(Actor user, int damage)
+		{
+			if (user.ActiveBuffs.Any(v => v.Key.Weak)) {
+				return UnityEngine.Mathf.CeilToInt((damage * 75) / 100);
+			} else {
+				return damage;
 			}
 		}
 

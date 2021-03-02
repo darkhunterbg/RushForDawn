@@ -33,6 +33,7 @@ namespace Assets.Code
 		AddBlockFromDamage,
 		AddBuff,
 		DealDamageFromBlock,
+		DealDamageUnblockable,
 	}
 
 	public enum EffectTarget

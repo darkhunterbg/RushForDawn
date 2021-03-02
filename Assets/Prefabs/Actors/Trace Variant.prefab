@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: ab840e98d754c174b924cffea6e9b68f, type: 3}
     - target: {fileID: 5025472629732019714, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_Name
-      value: Trance Variant
+      value: Trace Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019717, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: m_RootOrder
@@ -68,6 +68,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: CurrentHealth
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
       propertyPath: AbilityDefinisions.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -83,5 +87,9 @@ PrefabInstance:
       propertyPath: AbilityDefinisions.Array.data[2]
       value: 
       objectReference: {fileID: 4614675982850764780, guid: 680ff7acbd7330047a47173daefc367a, type: 3}
+    - target: {fileID: 5025472629732019719, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}
+      propertyPath: AbilityDefinisions.Array.data[3]
+      value: 
+      objectReference: {fileID: 4614675982850764780, guid: 1a8f6001e0b518a4493c92c31db12c4e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 951fa3521ffd6f84bba7cbbbb57e79bb, type: 3}

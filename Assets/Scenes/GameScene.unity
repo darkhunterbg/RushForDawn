@@ -447,6 +447,8 @@ MonoBehaviour:
     Color: {r: 0.9528302, g: 0.7494107, b: 0.21124065, a: 1}
   - Word: Health
     Color: {r: 0.990566, g: 0.28502133, b: 0.3126466, a: 1}
+  - Word: unblockable
+    Color: {r: 0.99215686, g: 0.9328759, b: 0.28627458, a: 1}
 --- !u!1 &468927972
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,24 +799,143 @@ MonoBehaviour:
   - Icon: {fileID: 21300000, guid: 2edfbcb0826bfb14bad75293e91655c5, type: 3}
     Name: Barricade
     Description: '[Block] is not removed until start of next turn.'
+    TickOnStartTurn: 1
+    RemoveAllStacksOnTick: 0
     KeepBlockNextTurn: 1
     IsTitanGuard: 0
     IsTaunted: 0
-    TickOnStartTurn: 1
+    AbilityCostReduction: 0
+    TakeNoDamage: 0
+    TakeDamageWhenAttacked: 0
+    MegaVulnerable: 0
+    Vulnerable: 0
+    Weak: 0
   - Icon: {fileID: 21300000, guid: 6cd2c4185efe1b64ab18736f44857e7b, type: 3}
     Name: Titan Guard
     Description: Taunted enemy will attack you.
+    TickOnStartTurn: 1
+    RemoveAllStacksOnTick: 0
     KeepBlockNextTurn: 0
     IsTitanGuard: 1
     IsTaunted: 0
-    TickOnStartTurn: 1
+    AbilityCostReduction: 0
+    TakeNoDamage: 0
+    TakeDamageWhenAttacked: 0
+    MegaVulnerable: 0
+    Vulnerable: 0
+    Weak: 0
   - Icon: {fileID: 21300000, guid: 6cd2c4185efe1b64ab18736f44857e7b, type: 3}
     Name: Taunted
     Description: Will attack Titan Guard.
+    TickOnStartTurn: 0
+    RemoveAllStacksOnTick: 0
     KeepBlockNextTurn: 0
     IsTitanGuard: 0
     IsTaunted: 1
+    AbilityCostReduction: 0
+    TakeNoDamage: 0
+    TakeDamageWhenAttacked: 0
+    MegaVulnerable: 0
+    Vulnerable: 0
+    Weak: 0
+  - Icon: {fileID: 21300000, guid: 73c220bf041c0474e9b0e8626819d218, type: 3}
+    Name: Subzero Overclock
+    Description: Next {0} [Action] cost 0.
     TickOnStartTurn: 0
+    RemoveAllStacksOnTick: 1
+    KeepBlockNextTurn: 0
+    IsTitanGuard: 0
+    IsTaunted: 0
+    AbilityCostReduction: 999
+    TakeNoDamage: 0
+    TakeDamageWhenAttacked: 0
+    MegaVulnerable: 0
+    Vulnerable: 0
+    Weak: 0
+  - Icon: {fileID: 21300000, guid: 3e06dfd7747196043a061ca3a0c5a328, type: 3}
+    Name: Aggresive Overclock
+    Description: Next {0} [Action] cost 1 less.
+    TickOnStartTurn: 0
+    RemoveAllStacksOnTick: 1
+    KeepBlockNextTurn: 0
+    IsTitanGuard: 0
+    IsTaunted: 0
+    AbilityCostReduction: 1
+    TakeNoDamage: 0
+    TakeDamageWhenAttacked: 0
+    MegaVulnerable: 0
+    Vulnerable: 0
+    Weak: 0
+  - Icon: {fileID: 21300000, guid: b272dca750c09ee4daab19516f497f4f, type: 3}
+    Name: Protect Process
+    Description: All damaged reduced by 1 until next turn.
+    TickOnStartTurn: 1
+    RemoveAllStacksOnTick: 0
+    KeepBlockNextTurn: 0
+    IsTitanGuard: 0
+    IsTaunted: 0
+    AbilityCostReduction: 0
+    TakeNoDamage: 1
+    TakeDamageWhenAttacked: 0
+    MegaVulnerable: 0
+    Vulnerable: 0
+    Weak: 0
+  - Icon: {fileID: 21300000, guid: 3c12d1644a6d2c34c8bcb90d7daa8e89, type: 3}
+    Name: Firewall Process
+    Description: Attackers takes 3 damage.
+    TickOnStartTurn: 1
+    RemoveAllStacksOnTick: 0
+    KeepBlockNextTurn: 0
+    IsTitanGuard: 0
+    IsTaunted: 0
+    AbilityCostReduction: 0
+    TakeNoDamage: 0
+    TakeDamageWhenAttacked: 3
+    MegaVulnerable: 0
+    Vulnerable: 0
+    Weak: 0
+  - Icon: {fileID: 21300000, guid: 4138b9c4c91212a488772e42bbdaf850, type: 3}
+    Name: Mega Vulnerable
+    Description: Take 50% more damage.
+    TickOnStartTurn: 1
+    RemoveAllStacksOnTick: 0
+    KeepBlockNextTurn: 0
+    IsTitanGuard: 0
+    IsTaunted: 0
+    AbilityCostReduction: 0
+    TakeNoDamage: 0
+    TakeDamageWhenAttacked: 0
+    MegaVulnerable: 1
+    Vulnerable: 0
+    Weak: 0
+  - Icon: {fileID: 21300000, guid: 20d0cbbc00df090448afb1c360e08fc6, type: 3}
+    Name: Vulnerable
+    Description: Take 25% more damage.
+    TickOnStartTurn: 1
+    RemoveAllStacksOnTick: 0
+    KeepBlockNextTurn: 0
+    IsTitanGuard: 0
+    IsTaunted: 0
+    AbilityCostReduction: 0
+    TakeNoDamage: 0
+    TakeDamageWhenAttacked: 0
+    MegaVulnerable: 0
+    Vulnerable: 1
+    Weak: 0
+  - Icon: {fileID: 21300000, guid: 6abe392b1c016e14f950ad1d044f3d05, type: 3}
+    Name: Weak
+    Description: Deal 25% less damage.
+    TickOnStartTurn: 0
+    RemoveAllStacksOnTick: 0
+    KeepBlockNextTurn: 0
+    IsTitanGuard: 0
+    IsTaunted: 0
+    AbilityCostReduction: 0
+    TakeNoDamage: 0
+    TakeDamageWhenAttacked: 0
+    MegaVulnerable: 0
+    Vulnerable: 0
+    Weak: 1
 --- !u!1 &928884304
 GameObject:
   m_ObjectHideFlags: 0

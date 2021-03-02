@@ -46,7 +46,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: ee485fe1acf70b04a9588202d347b1e3, type: 3}
   Name: Improvised Barrier
   Cost: 3
-  Description: Give 3 random allies {0} [Block].
+  Description: 3 random allies gain {0} [Block].
   Replaces: Barrier
   ActionPointsCost: 1
   Class: 2

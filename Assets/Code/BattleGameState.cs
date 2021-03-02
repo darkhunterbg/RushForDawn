@@ -79,7 +79,7 @@ namespace Assets.Code
 
 
 				if (p.IsAlive) {
-					p.transform.localPosition = new Vector3(i / 3 * -3f, -(i - 1) * 2.75f, 0);
+					p.transform.localPosition = new Vector3(i / 3 * -3.25f, -(i - 1) * 2.75f, 0);
 					if (i == 3) {
 						var v = p.transform.localPosition;
 						v.y = 0;
@@ -116,7 +116,7 @@ namespace Assets.Code
 				}
 
 				var p = Instantiate(def, EnemeyRoot.transform);
-				p.transform.localPosition = new Vector3(i / 3 * 3f, (i % 3 - 1) * 2.75f + y, 0);
+				p.transform.localPosition = new Vector3(i / 3 * 3f- 0.5f, (i % 3 - 1) * 2.75f + y, 0);
 				p.SetToMaxHP();
 				p.gameObject.SetActive(true);
 
@@ -441,7 +441,7 @@ namespace Assets.Code
 			if (hit.collider != null) {
 				var buff = hit.collider.GetComponent<UIBuff>();
 				if (buff != null) {
-					GameController.Instance.Tooltip.ShowBuff(buff.Buff);
+					GameController.Instance.Tooltip.ShowBuff(buff.Buff, buff.Stack);
 				} else if (GameController.Instance.Tooltip.Object is Buff) {
 					GameController.Instance.Tooltip.Hide();
 				}

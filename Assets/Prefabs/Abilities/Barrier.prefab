@@ -46,7 +46,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 5dad621fd8e4ab5439babda59647dd4b, type: 3}
   Name: Barrier
   Cost: 3
-  Description: Give you and an ally {0} [Block].
+  Description: You and an ally gain {0} [Block].
   Replaces: 
   ActionPointsCost: 1
   Class: 2

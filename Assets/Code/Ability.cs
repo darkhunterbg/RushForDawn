@@ -39,6 +39,15 @@ namespace Assets.Code
 			this.name = $"{Name}_Ability";
 		}
 
+		public int GetActualCost()
+		{
+			var costBuff = User.ActiveBuffs.Keys.FirstOrDefault(b => b.AbilityCostReduction > 0);
+			if (costBuff != null)
+				return Math.Max(0, Cost - costBuff.AbilityCostReduction);
+
+			return  Cost;
+		}
+
 		public bool CanExecute(IEnumerable<Actor> actors)
 		{
 			return User.ActionPoints >= ActionPointsCost && actors.Any(a => IsValidTarget(a));
@@ -92,10 +101,21 @@ namespace Assets.Code
 
 		private void ApplyEffect(Actor selection)
 		{
+
+			int thorns = 0;
+
 			foreach (var effect in Effects) {
 				var targets = effect.GetEffectTarget(User, selection);
-				foreach (var target in targets)
+
+
+				foreach (var target in targets) {
 					effect.Apply(User, target, _context);
+					thorns += target.ActiveBuffs.Keys.Sum(s => s.TakeDamageWhenAttacked);
+				}
+			}
+
+			if (thorns > 0 && Effects.Any(f => f.IsDamageEffect)) {
+				User.DealDamage(thorns);
 			}
 
 		}
@@ -131,8 +151,20 @@ namespace Assets.Code
 				}
 			}
 
-			if (Cost > 0)
-				User.DealDamage(Cost, ignoreBlock: true);
+			if (Cost > 0) {
+				var costBuff = User.ActiveBuffs.Keys.FirstOrDefault(b => b.AbilityCostReduction > 0);
+				if (costBuff == null)
+					User.DealDamage(Cost, ignoreBlock: true);
+				else {
+					User.ActiveBuffs[costBuff]--;
+
+					var cost = GetActualCost();
+					if(cost > 0)
+						User.DealDamage(cost, ignoreBlock: true);
+
+					User.RefreshBuffs();
+				}
+			}
 
 			yield return new WaitForSeconds(0.1f);
 

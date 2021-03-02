@@ -45,7 +45,7 @@ namespace Assets.Code
 			}
 
 			ContentText.text = text;
-			HealthCost.text = ability.Cost.ToString();
+			HealthCost.text = ability.GetActualCost().ToString();
 			HealthCostRoot.gameObject.SetActive(true);
 
 			Object = ability;
@@ -54,10 +54,10 @@ namespace Assets.Code
 
 			gameObject.SetActive(true);
 		}
-		public void ShowBuff(Buff buff)
+		public void ShowBuff(Buff buff, int stack = 1)
 		{
 			TitleText.text = buff.Name;
-			string text = buff.Description;
+			string text = string.Format(buff.Description, stack);
 			foreach (var word in Keywords) {
 				text = text.Replace($"[{word.Word}]", $"<color=#{ColorUtility.ToHtmlStringRGB(word.Color)}>{word.Word}</color>");
 			}
@@ -88,7 +88,7 @@ namespace Assets.Code
 
 		private void UpdatePosition()
 		{
-			if(_canvas==null)
+			if (_canvas == null)
 				_canvas = GetComponentInParent<Canvas>();
 
 			Vector2 movePos;

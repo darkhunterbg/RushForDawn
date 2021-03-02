@@ -46,7 +46,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: fbaa167090bced7429f7f3b08070090c, type: 3}
   Name: Mass Barrier
   Cost: 3
-  Description: Give you and all allies {0} [Block].
+  Description: You and all allies gain {0} [Block].
   Replaces: Barrier
   ActionPointsCost: 1
   Class: 2

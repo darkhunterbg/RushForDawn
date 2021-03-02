@@ -16,9 +16,19 @@ namespace Assets.Code
 		public string Description;
 
 
+		public bool TickOnStartTurn = false;
+		public bool RemoveAllStacksOnTick = false;
+
+		[Header("Stat")]
 		public bool KeepBlockNextTurn;
 		public bool IsTitanGuard;
 		public bool IsTaunted;
+		public int AbilityCostReduction;
+		public bool TakeNoDamage;
+		public int TakeDamageWhenAttacked;
+		public bool MegaVulnerable;
+		public bool Vulnerable;
+		public bool Weak;
 
 		public void Apply(Actor actor)
 		{
@@ -30,7 +40,6 @@ namespace Assets.Code
 			actor.UpdateBuffsGUI();
 		}
 
-		public bool TickOnStartTurn = false;
 
 		public override string ToString() => Name;
 	}

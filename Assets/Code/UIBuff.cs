@@ -13,10 +13,13 @@ namespace Assets.Code
 
 		public Buff Buff { get; private set; }
 
-		public void Init(Buff buff)
+		public int Stack { get; private set; }
+
+		public void Init(Buff buff,int stack)
 		{
 			Renderer.sprite = buff.Icon;
 			Buff = buff;
+			Stack = stack;
 		}
 	}
 }

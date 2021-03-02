@@ -62,6 +62,22 @@ namespace Assets.Code
 
 		public int DealDamage(int damage, bool ignoreBlock = false)
 		{
+			int mod = 100;
+
+			if (ActiveBuffs.Any(a => a.Key.MegaVulnerable)) {
+				mod += 50;
+			}
+
+			if (ActiveBuffs.Any(a => a.Key.Vulnerable)) {
+				mod += 25;
+			}
+
+			if (mod != 100)
+				damage = (damage * mod) / 100;
+
+			if (damage > 0 && ActiveBuffs.Any(b => b.Key.TakeNoDamage))
+				damage = 1;
+
 			if (!ignoreBlock) {
 				int remain = Block - damage;
 				if (remain > 0) {
@@ -243,7 +259,7 @@ namespace Assets.Code
 
 			foreach (var buff in ActiveBuffs.Keys.Where(b => b.TickOnStartTurn).ToList()) {
 				ActiveBuffs[buff]--;
-				if (ActiveBuffs[buff] <= 0)
+				if (ActiveBuffs[buff] <= 0 || buff.RemoveAllStacksOnTick)
 					ActiveBuffs.Remove(buff);
 			}
 
@@ -254,7 +270,7 @@ namespace Assets.Code
 			} else
 				Block = 0;
 
-	
+
 		}
 
 		public void EndTurn()
@@ -263,13 +279,22 @@ namespace Assets.Code
 
 			foreach (var buff in ActiveBuffs.Keys.Where(b => !b.TickOnStartTurn).ToList()) {
 				ActiveBuffs[buff]--;
-				if (ActiveBuffs[buff] <= 0)
+				if (ActiveBuffs[buff] <= 0 || buff.RemoveAllStacksOnTick)
 					ActiveBuffs.Remove(buff);
 			}
 
 			UpdateBuffsGUI();
 		}
 
+
+		public void RefreshBuffs()
+		{
+			foreach (var buff in ActiveBuffs.Where(b => b.Value == 0).ToList()) {
+				ActiveBuffs.Remove(buff.Key);
+			}
+
+			UpdateBuffsGUI();
+		}
 		public void UpdateBuffsGUI()
 		{
 			var buffs = GetComponentsInChildren<UIBuff>(BuffRoot);
@@ -279,10 +304,10 @@ namespace Assets.Code
 
 				if (i >= buffs.Length) {
 					var buff = GameObject.Instantiate(BuffPrefab, BuffRoot);
-					buff.Init(b.Key);
+					buff.Init(b.Key, b.Value);
 					buff.transform.localPosition = new Vector3(i * 0.5f, 0, 0);
 				} else {
-					buffs[i].Init(b.Key);
+					buffs[i].Init(b.Key, b.Value);
 					buffs[i].transform.localPosition = new Vector3(i * 0.5f, 0, 0);
 				}
 			}
