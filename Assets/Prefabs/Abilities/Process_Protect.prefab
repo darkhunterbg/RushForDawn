@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: b272dca750c09ee4daab19516f497f4f, type: 3}
   Name: Protect Process
-  Cost: 4
+  Cost: 3
   ScrapCost: 10
   Description: Single friendly target has all damage reduced to 1 untill next turn.
   Replaces: Process
