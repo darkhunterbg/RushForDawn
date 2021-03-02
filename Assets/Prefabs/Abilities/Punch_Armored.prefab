@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4421221310245843376}
   - component: {fileID: 4614675982850764780}
   m_Layer: 0
-  m_Name: Barrier
+  m_Name: Punch_Armored
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,18 +43,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ee2728eedea0d41a82ae14e7bd0ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 5dad621fd8e4ab5439babda59647dd4b, type: 3}
-  Name: Barrier
-  Cost: 3
-  Description: Give you and an ally {0} [Block].
-  Clip: {fileID: 0}
+  Icon: {fileID: 21300000, guid: a730eaea01b1c944bb8b5d23861ceeae, type: 3}
+  Name: Armored Punch
+  Cost: 2
+  Description: Deal {0} damage. Gain [Block] equal to damage dealt.
+  Replaces: Punch
   ActionPointsCost: 1
-  TargetGenerator: 4
+  Class: 1
+  ExecuteCount: 1
+  Clip: {fileID: 7400000, guid: 5c3e731154594d243a0e388ca8ddc674, type: 2}
+  EffectDelay: 0.06
+  TargetGenerator: 2
   Effects:
-  - Type: 1
+  - Type: 0
     Target: 0
-    Value: 5
-  - Type: 1
+    Value: 10
+  - Type: 4
     Target: 1
-    Value: 5
+    Value: 1
   User: {fileID: 0}

@@ -9,7 +9,7 @@ namespace Assets.Code
 	{
 		public static GameController Instance { get; private set; }
 
-		public int Level = 0;
+		public int Level { get; private set; } = 2;
 
 		public int Scrap = 0;
 		public BattleGameState BattleState;
@@ -19,6 +19,8 @@ namespace Assets.Code
 		public List<Actor> Party { get; private set; } = new List<Actor>();
 
 		public Actor Enemy;
+
+		public Tooltip Tooltip;
 
 		public void NewBattle()
 		{
@@ -38,6 +40,8 @@ namespace Assets.Code
 		// Start is called before the first frame update
 		void Start()
 		{
+			Tooltip.gameObject.SetActive(false);
+
 			if (Party.Count == 0) {
 				foreach (var p in PartyDefinition) {
 					var o = GameObject.Instantiate(p);

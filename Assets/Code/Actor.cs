@@ -25,6 +25,7 @@ namespace Assets.Code
 
 		public int CurrentHealth;
 		public int MaxHealth;
+		public int MissingHealth => MaxHealth - CurrentHealth;
 
 		public List<Ability> AbilityDefinisions;
 
@@ -53,12 +54,12 @@ namespace Assets.Code
 
 		private float _deathTimer = 0.0f;
 
-		public void DealDamage(int damage, bool ignoreBlock = false)
+		public int DealDamage(int damage, bool ignoreBlock = false)
 		{
 			if (!ignoreBlock) {
 				int remain = Block - damage;
 				if (remain > 0)
-					return;
+					return 0;
 
 				Block = 0;
 				damage = -remain;
@@ -70,6 +71,8 @@ namespace Assets.Code
 			_damageAccumulator += damage;
 
 			_damageTimer = 1.5f;
+
+			return damage;
 		}
 
 		public void Kill()
@@ -80,12 +83,14 @@ namespace Assets.Code
 			}
 		}
 
-		public void GainBlock(int block)
+		public int GainBlock(int block)
 		{
 			Block += block;
 
 			_blockTimer = 1.5f;
 			_blockAccumulator += block;
+
+			return block;
 		}
 
 		public void Awake()
@@ -94,6 +99,8 @@ namespace Assets.Code
 
 			BlockGainText.gameObject.SetActive(false);
 			DamageText.gameObject.SetActive(false);
+
+			SetToMaxHP();
 		}
 
 		internal void RemoveActionPoints()
@@ -146,13 +153,34 @@ namespace Assets.Code
 		{
 			bool isPlayer = BattleGameState.Instance.PlayerParty.Contains(this);
 
-			if(isPlayer)
+			if (isPlayer)
 				return BattleGameState.Instance.PlayerParty.Contains(actor);
 			else
 				return BattleGameState.Instance.EnemyParty.Contains(actor);
 
 		}
 		public bool IsEnemy(Actor actor) => !IsAlly(actor);
+
+		public IEnumerable<Actor> GetEnemies()
+		{
+			bool isPlayer = BattleGameState.Instance.PlayerParty.Contains(this);
+
+			IEnumerable<Actor> result = isPlayer ? BattleGameState.Instance.EnemyParty : BattleGameState.Instance.PlayerParty;
+
+			return result.Where(t => t.IsAlive);
+
+		}
+		public IEnumerable<Actor> GetAllies(bool excludeSelf = false)
+		{
+			bool isPlayer = BattleGameState.Instance.PlayerParty.Contains(this);
+
+			IEnumerable<Actor> result = isPlayer ? BattleGameState.Instance.PlayerParty : BattleGameState.Instance.EnemyParty;
+
+			if (excludeSelf)
+				result = result.Where(t => t != this);
+
+			return result.Where(t => t.IsAlive);
+		}
 
 		public void Update()
 		{
@@ -179,14 +207,14 @@ namespace Assets.Code
 				_blockAccumulator = 0;
 			}
 
-			if(_deathTimer > 0) {
+			if (_deathTimer > 0) {
 				HUD.gameObject.SetActive(false);
 
 				SpriteRenderer.color = new Color(1, 1, 1, _deathTimer / 1.5f);
 
 				_deathTimer -= Time.deltaTime;
 
-				if(_deathTimer <= 0) {
+				if (_deathTimer <= 0) {
 					gameObject.SetActive(false);
 					BattleGameState.Instance.OnActorDied(this);
 				}

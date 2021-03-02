@@ -20,6 +20,7 @@ namespace Assets.Code
 		OneEnemy,
 		OneAlly,
 		OneAllyExcludeSelf,
+		AllEnemies,
 	}
 
 	public enum EffectType
@@ -27,11 +28,24 @@ namespace Assets.Code
 		DealDamage,
 		Block,
 		ModifyActionPoints,
+		DealDamageHealthScaled,
+		AddBlockFromDamage,
 	}
 
 	public enum EffectTarget
 	{
 		Target,
-		Self
+		Self,
+		RandomEnemy,
+		AllEnemies,
+	}
+
+	public enum ClassType
+	{
+		None,
+		Volt,
+		Null,
+		Trace,
+		Egg
 	}
 }

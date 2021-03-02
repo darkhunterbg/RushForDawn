@@ -13,10 +13,19 @@ namespace Assets.Code
 		public Sprite Icon;
 		public string Name;
 		public int Cost;
+		public string Description;
+
+		public string Replaces;
+		public int ActionPointsCost = 1;
+		public ClassType Class;
+
+		public int ExecuteCount = 1;
 
 		public AnimationClip Clip;
 
-		public int ActionPointsCost = 1;
+		public float EffectDelay = 0;
+
+
 
 		public AbilityTargetGeneratorType TargetGenerator;
 
@@ -48,6 +57,7 @@ namespace Assets.Code
 				case AbilityTargetGeneratorType.OneAllyExcludeSelf: return User != actor && User.IsAlly(actor);
 				case AbilityTargetGeneratorType.OneEnemy: return User.IsEnemy(actor);
 				case AbilityTargetGeneratorType.Self: return User == actor;
+				case AbilityTargetGeneratorType.AllEnemies: return User.IsEnemy(actor);
 			}
 
 			return false;
@@ -64,37 +74,55 @@ namespace Assets.Code
 
 		public void ExecuteAbility(Actor selection, Action endCallback)
 		{
+			_context = new AbilityExecutionContext();
+
 			User.ActionPoints -= ActionPointsCost;
 
-			foreach (var effect in Effects) {
-				var targets = effect.GetEffectTarget(User, selection);
-				foreach (var target in targets)
-					effect.Apply(User, target);
-			}
-
-
-			StartCoroutine(WaitForAnimationCrt(endCallback));
+			StartCoroutine(WaitForAnimationCrt(selection, endCallback));
 
 		}
 
+		private AbilityExecutionContext _context;
 
-
-		private IEnumerator WaitForAnimationCrt(Action endCallback)
+		private void ApplyEffect(Actor selection)
 		{
-			if (Clip != null) {
+			foreach (var effect in Effects) {
+				var targets = effect.GetEffectTarget(User, selection);
+				foreach (var target in targets)
+					effect.Apply(User, target, _context);
+			}
 
-				var animation = User.GetComponentInChildren<Animation>();
-				if (animation != null) {
+		}
+
+		private IEnumerator WaitForAnimationCrt(Actor target, Action endCallback)
+		{
+			var animation = User.GetComponentInChildren<Animation>();
+
+			if (Clip != null && animation != null) {
+
+				for (int i = 0; i < ExecuteCount; ++i) {
 					animation.AddClip(Clip, Clip.name);
 					animation.clip = Clip;
 					animation.Play();
 
-					yield return new WaitForSeconds(Clip.averageDuration);
+					if (EffectDelay > 0)
+						yield return new WaitForSeconds(EffectDelay);
+
+					ApplyEffect(target);
+
+					yield return new WaitForSeconds(Clip.averageDuration - EffectDelay);
 
 					animation.RemoveClip(Clip);
-				}
 
-				yield return new WaitForSeconds(0.1f);
+
+					yield return new WaitForSeconds(0.1f);
+				}
+			} else {
+				for (int i = 0; i < ExecuteCount; ++i) {
+					ApplyEffect(target);
+					yield return new WaitForSeconds(0.1f);
+
+				}
 			}
 
 			if (Cost > 0)

@@ -43,14 +43,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ee2728eedea0d41a82ae14e7bd0ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: cc9a6d8ef6694d1459d79071c4ad5976, type: 3}
+  Icon: {fileID: 21300000, guid: 5c3ea17e2a678534c8d020893e325a8b, type: 3}
   Name: Beam
   Cost: 3
-  Clip: {fileID: 0}
+  Description: Deal {0} damage to a single target.
+  Replaces: 
   ActionPointsCost: 1
+  Class: 1
+  ExecuteCount: 1
+  Clip: {fileID: 7400000, guid: 5c3e731154594d243a0e388ca8ddc674, type: 2}
+  EffectDelay: 0.06
   TargetGenerator: 2
   Effects:
   - Type: 0
     Target: 0
-    Value: 50
+    Value: 12
   User: {fileID: 0}

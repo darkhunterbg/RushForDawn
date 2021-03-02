@@ -46,6 +46,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 3e06dfd7747196043a061ca3a0c5a328, type: 3}
   Name: Overclock
   Cost: 3
+  Description: Grant ally extra [Action] this turn.
+  Clip: {fileID: 0}
   ActionPointsCost: 1
   TargetGenerator: 4
   Effects:
