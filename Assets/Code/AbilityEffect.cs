@@ -29,6 +29,12 @@ namespace Assets.Code
 				case EffectType.DealDamageHealthScaled: context.DamageDealt+= target.DealDamage(user.MissingHealth * Value); break;
 				case EffectType.AddBlockFromDamage:
 					context.BlockGained += target.GainBlock(Value * context.DamageDealt); break;
+				case EffectType.AddBuff:
+					var buff = GameController.Instance.Buffs[Value];
+					buff.Apply(target);
+					break;
+				case EffectType.DealDamageFromBlock:
+					context.DamageDealt += target.DealDamage(Value * user.Block); break;
 				default:
 					throw new Exception($"Unknown effect type {Type}");
 			}
@@ -52,9 +58,29 @@ namespace Assets.Code
 
 						break;
 					}
+				case EffectTarget.RandomAlly: {
+
+						var allies = user.GetAllies().ToList();
+						if (allies.Count == 0) {
+							yield break;
+						}
+
+						int r = UnityEngine.Random.Range(0, allies.Count);
+
+						yield return allies[r];
+
+						break;
+					}
 				case EffectTarget.AllEnemies: {
 
 						foreach (var e in user.GetEnemies())
+							yield return e;
+
+						break;
+					}
+				case EffectTarget.AllAllies: {
+
+						foreach (var e in user.GetAllies())
 							yield return e;
 
 						break;

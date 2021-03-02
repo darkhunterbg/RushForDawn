@@ -37,7 +37,7 @@ namespace Assets.Code
 
 		public void Update()
 		{
-			Button.interactable = !Disable && Ability.CanExecute(BattleGameState.Instance.Actors);
+			Button.interactable = !Disable && Ability.User.PlayerControllable && Ability.CanExecute(BattleGameState.Instance.Actors);
 		}
 
 		public void OnPointerEnter(PointerEventData eventData)

@@ -26,14 +26,12 @@ namespace Assets.Code
 		public float EffectDelay = 0;
 
 
-
 		public AbilityTargetGeneratorType TargetGenerator;
 
 		public List<AbilityEffect> Effects;
 
 		[Header("Other")]
 		public Actor User;
-
 
 
 		public void Awake()
@@ -52,11 +50,19 @@ namespace Assets.Code
 			if (!actor.IsAlive)
 				return false;
 
+			if (User.ActiveBuffs.Any(b => b.Key.IsTaunted)) {
+				var target = User.GetEnemies().FirstOrDefault(t => t.ActiveBuffs.Any(b => b.Key.IsTitanGuard));
+				if (target != null && actor != target)
+					return false;
+			}
+
+
 			switch (TargetGenerator) {
 				case AbilityTargetGeneratorType.OneAlly: return User.IsAlly(actor);
 				case AbilityTargetGeneratorType.OneAllyExcludeSelf: return User != actor && User.IsAlly(actor);
 				case AbilityTargetGeneratorType.OneEnemy: return User.IsEnemy(actor);
 				case AbilityTargetGeneratorType.Self: return User == actor;
+				case AbilityTargetGeneratorType.AllAllies: return User.IsAlly(actor);
 				case AbilityTargetGeneratorType.AllEnemies: return User.IsEnemy(actor);
 			}
 

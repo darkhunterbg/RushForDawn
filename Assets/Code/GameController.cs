@@ -9,7 +9,7 @@ namespace Assets.Code
 	{
 		public static GameController Instance { get; private set; }
 
-		public int Level { get; private set; } = 2;
+		public int Level { get; private set; } = 0;
 
 		public int Scrap = 0;
 		public BattleGameState BattleState;
@@ -21,6 +21,8 @@ namespace Assets.Code
 		public Actor Enemy;
 
 		public Tooltip Tooltip;
+
+		public List<Buff> Buffs;
 
 		public void NewBattle()
 		{

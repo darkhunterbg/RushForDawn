@@ -47,8 +47,12 @@ MonoBehaviour:
   Name: Block
   Cost: 1
   Description: Gain {0} [Block].
-  Clip: {fileID: 0}
+  Replaces: 
   ActionPointsCost: 1
+  Class: 0
+  ExecuteCount: 1
+  Clip: {fileID: 7400000, guid: 30c33c90a40e3dd4e86b25673db7cd27, type: 2}
+  EffectDelay: 0
   TargetGenerator: 1
   Effects:
   - Type: 1

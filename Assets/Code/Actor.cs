@@ -16,6 +16,9 @@ namespace Assets.Code
 		public TMPro.TMP_Text DamageText;
 		public TMPro.TMP_Text BlockGainText;
 
+		public UIBuff BuffPrefab;
+		public Transform BuffRoot;
+
 		public GameObject HUD;
 
 		[Header("Data")]
@@ -32,6 +35,9 @@ namespace Assets.Code
 		public List<Ability> Abilities { get; private set; } = new List<Ability>();
 
 		public SpriteRenderer SpriteRenderer;
+
+
+		public Dictionary<Buff, int> ActiveBuffs { get; private set; } = new Dictionary<Buff, int>();
 
 		public int ActionPointsPerTurn;
 		public int ActionPoints;
@@ -58,11 +64,13 @@ namespace Assets.Code
 		{
 			if (!ignoreBlock) {
 				int remain = Block - damage;
-				if (remain > 0)
-					return 0;
-
-				Block = 0;
-				damage = -remain;
+				if (remain > 0) {
+					Block = remain;
+					damage = 0;
+				} else {
+					Block = 0;
+					damage = -remain;
+				}
 			}
 			CurrentHealth -= damage;
 			if (CurrentHealth <= 0)
@@ -101,6 +109,7 @@ namespace Assets.Code
 			DamageText.gameObject.SetActive(false);
 
 			SetToMaxHP();
+
 		}
 
 		internal void RemoveActionPoints()
@@ -111,9 +120,11 @@ namespace Assets.Code
 		public void OnEnable()
 		{
 			foreach (var a in Abilities)
-				Destroy(a);
+				Destroy(a.gameObject);
 
 			Abilities.Clear();
+
+			ActiveBuffs.Clear();
 
 			foreach (var a in AbilityDefinisions) {
 				Abilities.Add(Instantiate(a, this.transform));
@@ -187,6 +198,8 @@ namespace Assets.Code
 			HealthText.text = $"{CurrentHealth}/{MaxHealth}";
 			BlockText.text = Block.ToString();
 
+
+
 			if (_damageTimer > 0) {
 				DamageText.gameObject.SetActive(true);
 				DamageText.alpha = _damageTimer / 1.5f;
@@ -224,7 +237,59 @@ namespace Assets.Code
 		public void NewTurn()
 		{
 			ActionPoints = ActionPointsPerTurn;
-			Block = 0;
+
+
+			bool keepBlock = ActiveBuffs.Any(s => s.Key.KeepBlockNextTurn);
+
+			foreach (var buff in ActiveBuffs.Keys.Where(b => b.TickOnStartTurn).ToList()) {
+				ActiveBuffs[buff]--;
+				if (ActiveBuffs[buff] <= 0)
+					ActiveBuffs.Remove(buff);
+			}
+
+			UpdateBuffsGUI();
+
+			if (keepBlock) {
+				// Nothing we have to keep block
+			} else
+				Block = 0;
+
+	
 		}
+
+		public void EndTurn()
+		{
+			ActionPoints = 0;
+
+			foreach (var buff in ActiveBuffs.Keys.Where(b => !b.TickOnStartTurn).ToList()) {
+				ActiveBuffs[buff]--;
+				if (ActiveBuffs[buff] <= 0)
+					ActiveBuffs.Remove(buff);
+			}
+
+			UpdateBuffsGUI();
+		}
+
+		public void UpdateBuffsGUI()
+		{
+			var buffs = GetComponentsInChildren<UIBuff>(BuffRoot);
+
+			for (int i = 0; i < ActiveBuffs.Count; ++i) {
+				var b = ActiveBuffs.ElementAt(i);
+
+				if (i >= buffs.Length) {
+					var buff = GameObject.Instantiate(BuffPrefab, BuffRoot);
+					buff.Init(b.Key);
+					buff.transform.localPosition = new Vector3(i * 0.5f, 0, 0);
+				} else {
+					buffs[i].Init(b.Key);
+					buffs[i].transform.localPosition = new Vector3(i * 0.5f, 0, 0);
+				}
+			}
+			for (int j = ActiveBuffs.Count; j < buffs.Length; ++j) {
+				Destroy(buffs[j].gameObject);
+			}
+		}
+
 	}
 }

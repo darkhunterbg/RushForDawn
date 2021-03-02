@@ -181,6 +181,8 @@ MonoBehaviour:
   BlockText: {fileID: 1737552975720299683}
   DamageText: {fileID: 3676381761205522976}
   BlockGainText: {fileID: 3376051465239272769}
+  BuffPrefab: {fileID: 9203300684589104112, guid: 0a2dfb2cabcdd974b88d37567a83b9ba, type: 3}
+  BuffRoot: {fileID: 8393962226950894265}
   HUD: {fileID: 8404205724375439456}
   Name: Actor
   ScrapReward: 10
@@ -341,3 +343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &8393962226950894265 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8467339533399620349, guid: 32cf91b61a67b9149bb29015305f7a04, type: 3}
+  m_PrefabInstance: {fileID: 143922075668809796}
+  m_PrefabAsset: {fileID: 0}

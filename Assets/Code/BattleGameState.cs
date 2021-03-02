@@ -56,7 +56,7 @@ namespace Assets.Code
 		public void OnEnable()
 		{
 			PlayerParty = PlayerRoot.transform.GetComponentsInChildren<Actor>().ToList();
-			EnemyParty = EnemeyRoot.transform.GetComponentsInChildren<Actor>(includeInactive:true).ToList();
+			EnemyParty = EnemeyRoot.transform.GetComponentsInChildren<Actor>(includeInactive: true).ToList();
 
 			foreach (var ability in AbiltyBar.GetComponentsInChildren<UIAbility>())
 				Destroy(ability.gameObject);
@@ -94,7 +94,7 @@ namespace Assets.Code
 				++i;
 			}
 
-			foreach(var e in EnemyParty) {
+			foreach (var e in EnemyParty) {
 				Destroy(e.gameObject);
 			}
 			EnemyParty.Clear();
@@ -111,8 +111,7 @@ namespace Assets.Code
 
 				if (onColumns == 1) {
 					y = 2.75f;
-				}
-				else if (onColumns == 2) {
+				} else if (onColumns == 2) {
 					y = 2.75f / 2.0f;
 				}
 
@@ -167,6 +166,9 @@ namespace Assets.Code
 							foreach (var actor in EnemyParty) {
 								actor.NewTurn();
 							}
+							foreach(var actor in PlayerParty) {
+								actor.EndTurn();
+							}
 
 							SetSelection(null);
 
@@ -175,6 +177,9 @@ namespace Assets.Code
 
 							foreach (var actor in PlayerParty) {
 								actor.NewTurn();
+							}
+							foreach (var actor in EnemyParty) {
+								actor.EndTurn();
 							}
 
 							SetSelection(PlayerParty.FirstOrDefault(s => s.CanAct));
@@ -245,7 +250,7 @@ namespace Assets.Code
 		private void ActorSelected(Actor selection)
 		{
 			if (State == BattleGameStateType.PartyIdle) {
-				if (PlayerParty.Contains(selection) && selection.PlayerControllable)
+				if (PlayerParty.Contains(selection) )
 					SetSelection(selection);
 			} else if (State == BattleGameStateType.AbilitySelected) {
 				if (SelectedAbility.IsValidTarget(selection)) {
@@ -382,6 +387,11 @@ namespace Assets.Code
 			if (VictoryScreen.gameObject.activeInHierarchy)
 				return;
 
+			var mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
+
+			var hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+
 			if (State == BattleGameStateType.PartyIdle || State == BattleGameStateType.AbilitySelected) {
 				if (SelectedActor != null) {
 					for (int i = 0; i < _abilityKeys.Length; ++i) {
@@ -397,13 +407,21 @@ namespace Assets.Code
 				if (Input.GetKeyUp(KeyCode.E)) {
 					EndTurn();
 				}
+
+				if (Input.GetKeyUp(KeyCode.Tab)) {
+					var alive = PlayerParty.Where(t => t.IsAlive).ToList();
+					int i = alive.IndexOf(SelectedActor);
+					++i;
+					if (i >= alive.Count)
+						i = 0;
+					ToIdleState();
+					SetSelection(alive[i]);
+				}
 			}
+
 
 			if (Input.GetMouseButtonUp(0)) {
 
-				var mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
-
-				var hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
 				Actor selection = null;
 
@@ -419,6 +437,17 @@ namespace Assets.Code
 				if (State == BattleGameStateType.AbilitySelected)
 					ToIdleState();
 			}
+
+			if (hit.collider != null) {
+				var buff = hit.collider.GetComponent<UIBuff>();
+				if (buff != null) {
+					GameController.Instance.Tooltip.ShowBuff(buff.Buff);
+				} else if (GameController.Instance.Tooltip.Object is Buff) {
+					GameController.Instance.Tooltip.Hide();
+				}
+			} else if (GameController.Instance.Tooltip.Object is Buff)
+				GameController.Instance.Tooltip.Hide();
 		}
 	}
 }
+
