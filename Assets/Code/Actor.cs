@@ -227,7 +227,6 @@ namespace Assets.Code
 			BlockText.text = Block.ToString();
 
 
-
 			if (_damageTimer > 0) {
 				DamageText.gameObject.SetActive(true);
 				DamageText.alpha = _damageTimer;

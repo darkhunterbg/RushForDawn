@@ -86,26 +86,25 @@ namespace Assets.Code
 			Instance = this;
 		}
 
+		public void NewGame()
+		{
+			UnityEngine.Random.InitState(System.Environment.TickCount);
+			Level = 0;
+			NewParty();
+			NewBattle();
+		}
+
 		// Start is called before the first frame update
 		void Start()
 		{
-			UnityEngine.Random.InitState(System.Environment.TickCount);
 
 			Tooltip.gameObject.SetActive(false);
 
-			if (Party.Count == 0) {
-				foreach (var p in PartyDefinition) {
-					var o = GameObject.Instantiate(p);
-					p.SetToMaxHP();
-					Party.Add(o);
-					o.gameObject.SetActive(false);
-				}
-			}
-
 			if (TestLevel > 0) {
+				NewParty();
 				Level = TestLevel - 1;
 				Scrap = 0;
-				for (int i = 0; i < TestLevel ; ++i) {
+				for (int i = 0; i < TestLevel; ++i) {
 					Scrap += Levels[i].Budget;
 				}
 				Scrap /= 2;
@@ -115,7 +114,24 @@ namespace Assets.Code
 				BattleState.VictoryScreen.gameObject.SetActive(true);
 
 			} else
-				NewBattle();
+				NewGame();
+		}
+
+		void NewParty()
+		{
+			foreach (var p in Party) {
+				Destroy(p.gameObject);
+			}
+			Party.Clear();
+
+
+			foreach (var p in PartyDefinition) {
+				var o = GameObject.Instantiate(p);
+				p.SetToMaxHP();
+				Party.Add(o);
+				o.gameObject.SetActive(false);
+			}
+
 		}
 
 		// Update is called once per frame

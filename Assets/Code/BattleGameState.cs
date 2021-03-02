@@ -21,7 +21,7 @@ namespace Assets.Code
 		public TMPro.TMP_Text AbilitySelectedName;
 
 		public BattleWonScreen VictoryScreen;
-
+		public GameOverScreen GameOverScreen;
 
 		public List<Actor> PlayerParty { get; private set; }
 		public List<Actor> EnemyParty { get; private set; }
@@ -74,6 +74,7 @@ namespace Assets.Code
 			IsEnemyTurn = false;
 
 			VictoryScreen.gameObject.SetActive(false);
+			GameOverScreen.gameObject.SetActive(false);
 
 			PlayerParty.Clear();
 
@@ -195,7 +196,6 @@ namespace Assets.Code
 			}
 		}
 
-
 		public void OnActorDied(Actor actor)
 		{
 			if (EnemyParty.Contains(actor)) {
@@ -209,6 +209,13 @@ namespace Assets.Code
 
 		private bool GameOverCheck()
 		{
+			if(!PlayerParty.First(p=>p.Class== ClassType.Egg).IsAlive) {
+				State = BattleGameStateType.GameOver;
+
+				StartCoroutine(GameOverCrt());
+				return true;
+			}
+
 
 			if (EnemyParty.All(p => !p.IsAlive)) {
 				if (!VictoryScreen.gameObject.activeInHierarchy) {
@@ -218,7 +225,7 @@ namespace Assets.Code
 					return true;
 				}
 			
-			}
+			} 
 
 			return false;
 		}
@@ -229,8 +236,12 @@ namespace Assets.Code
 
 			yield return new WaitForSeconds(1.6f);
 
-			VictoryScreen.Init();
-			VictoryScreen.gameObject.SetActive(true);
+			if (!PlayerParty.First(p => p.Class == ClassType.Egg).IsAlive) {
+				GameOverScreen.gameObject.SetActive(true);
+			} else {
+				VictoryScreen.Init();
+				VictoryScreen.gameObject.SetActive(true);
+			}
 		}
 
 		public void SetSelection(Actor selection)
