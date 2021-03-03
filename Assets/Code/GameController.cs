@@ -88,7 +88,8 @@ namespace Assets.Code
 
 		public void NewGame()
 		{
-			UnityEngine.Random.InitState(System.Environment.TickCount);
+			Random.InitState(System.Environment.TickCount);
+			Scrap = 0;
 			Level = 0;
 			NewParty();
 			NewBattle();
@@ -112,6 +113,7 @@ namespace Assets.Code
 				BattleState.gameObject.SetActive(true);
 				BattleState.VictoryScreen.Init();
 				BattleState.VictoryScreen.gameObject.SetActive(true);
+				BattleState.GameOverScreen.gameObject.SetActive(false);
 
 			} else
 				NewGame();

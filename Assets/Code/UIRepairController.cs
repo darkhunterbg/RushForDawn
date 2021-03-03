@@ -55,7 +55,7 @@ namespace Assets.Code
 
 			if (actor.Class == ClassType.Egg) {
 				DismantleRoot.gameObject.SetActive(false);
-				DismantleRoot.gameObject.SetActive(false);
+				ReconstructRoot.gameObject.SetActive(false);
 			} else {
 				DismantleRoot.gameObject.SetActive(true);
 			}

@@ -237,10 +237,16 @@ namespace Assets.Code
 			yield return new WaitForSeconds(1.6f);
 
 			if (!PlayerParty.First(p => p.Class == ClassType.Egg).IsAlive) {
+				GameOverScreen.Victory = false;
 				GameOverScreen.gameObject.SetActive(true);
 			} else {
-				VictoryScreen.Init();
-				VictoryScreen.gameObject.SetActive(true);
+				if (GameController.Instance.Level == GameController.Instance.Levels.Count) {
+					GameOverScreen.Victory = true;
+					GameOverScreen.gameObject.SetActive(true);
+				} else {
+					VictoryScreen.Init();
+					VictoryScreen.gameObject.SetActive(true);
+				}
 			}
 		}
 
