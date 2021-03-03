@@ -47,8 +47,8 @@ MonoBehaviour:
   Name: Subzero Overclock
   Cost: 2
   ScrapCost: 10
-  Description: Grant single ally extra [Action] this turn. Their next [Action] costs
-    0 this turn.
+  Description: Grant single ally extra [Action] this turn and {1} [Block]. Their
+    next [Action] costs 0 this turn.
   Replaces: Overclock
   ActionPointsCost: 1
   Class: 3
@@ -60,6 +60,9 @@ MonoBehaviour:
   - Type: 2
     Target: 0
     Value: 1
+  - Type: 1
+    Target: 0
+    Value: 3
   - Type: 5
     Target: 0
     Value: 3

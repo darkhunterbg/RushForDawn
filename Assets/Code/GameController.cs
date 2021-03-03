@@ -20,6 +20,14 @@ namespace Assets.Code
 			public List<Actor> Fixed;
 		}
 
+		[System.Serializable]
+		public class Difficulty
+		{
+			public int ScrapModifier = 0;
+			public int EnemiesHealthModifier = 0;
+		}
+
+
 		public static GameController Instance { get; private set; }
 
 		public int Level { get; private set; } = 0;
@@ -28,6 +36,7 @@ namespace Assets.Code
 
 		public int Scrap = 0;
 		public BattleGameState BattleState;
+		public MainMenuState MainMenu;
 
 		public List<Actor> PartyDefinition;
 
@@ -44,6 +53,9 @@ namespace Assets.Code
 
 		public List<LevelSettings> Levels;
 
+		public List<Difficulty> Difficulties;
+
+		public Difficulty GameDifficulty { get;  set; }
 
 		public void NewBattle()
 		{
@@ -86,13 +98,26 @@ namespace Assets.Code
 			Instance = this;
 		}
 
+		public void ToMainMenu()
+		{
+			MainMenu.TutorialRoot.gameObject.SetActive(false);
+			MainMenu.gameObject.SetActive(true);
+			BattleState.gameObject.SetActive(false);
+		}
+
 		public void NewGame()
 		{
+			MainMenu.gameObject.SetActive(false);
+
 			Random.InitState(System.Environment.TickCount);
 			Scrap = 0;
 			Level = 0;
 			NewParty();
-			NewBattle();
+
+			BattleState.gameObject.SetActive(true);
+			BattleState.VictoryScreen.Init(true);
+			BattleState.VictoryScreen.gameObject.SetActive(true);
+			BattleState.GameOverScreen.gameObject.SetActive(false);
 		}
 
 		// Start is called before the first frame update
@@ -102,6 +127,9 @@ namespace Assets.Code
 			Tooltip.gameObject.SetActive(false);
 
 			if (TestLevel > 0) {
+
+				GameDifficulty = Difficulties[1];
+
 				NewParty();
 				Level = TestLevel - 1;
 				Scrap = 0;
@@ -110,13 +138,14 @@ namespace Assets.Code
 				}
 				Scrap /= 2;
 
+				MainMenu.gameObject.SetActive(false);
 				BattleState.gameObject.SetActive(true);
-				BattleState.VictoryScreen.Init();
+				BattleState.VictoryScreen.Init(false);
 				BattleState.VictoryScreen.gameObject.SetActive(true);
 				BattleState.GameOverScreen.gameObject.SetActive(false);
 
 			} else
-				NewGame();
+				ToMainMenu();
 		}
 
 		void NewParty()

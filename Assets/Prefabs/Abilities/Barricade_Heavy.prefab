@@ -46,6 +46,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 2edfbcb0826bfb14bad75293e91655c5, type: 3}
   Name: Heavy Barricade
   Cost: 3
+  ScrapCost: 10
   Description: Gain {0} [Block]. Block is not removed on end of next turn.
   Replaces: Barricade
   ActionPointsCost: 1
@@ -57,7 +58,7 @@ MonoBehaviour:
   Effects:
   - Type: 1
     Target: 1
-    Value: 9
+    Value: 10
   - Type: 5
     Target: 1
     Value: 0

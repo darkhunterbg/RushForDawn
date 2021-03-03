@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 6cd2c4185efe1b64ab18736f44857e7b, type: 3}
   Name: Titan Guard
-  Cost: 3
+  Cost: 2
   ScrapCost: 10
   Description: Gain {0} [Block]. One enemy must attack only you next turn.
   Replaces: Titan

@@ -59,8 +59,8 @@ MonoBehaviour:
   Effects:
   - Type: 0
     Target: 0
-    Value: 5
+    Value: 6
   - Type: 3
     Target: 0
-    Value: 2
+    Value: 1
   User: {fileID: 0}

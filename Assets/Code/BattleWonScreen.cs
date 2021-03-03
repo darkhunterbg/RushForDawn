@@ -12,6 +12,7 @@ namespace Assets.Code
 	{
 		public Button NextBattleButton;
 		public Button UpgradesButton;
+		public Button MainMenuButton;
 
 		public GameObject UpgradesScreen;
 		public GameObject ShopItemsRoot;
@@ -20,6 +21,7 @@ namespace Assets.Code
 		public GameObject RepairItemsRoot;
 
 		public Text DescriptionText;
+		public Text TitleText;
 
 		private List<Ability> _shopAbilities;
 
@@ -29,7 +31,7 @@ namespace Assets.Code
 		{
 			NextBattleButton.onClick.AddListener(NextBattleClicked);
 			UpgradesButton.onClick.AddListener(UpgradesClicked);
-
+			MainMenuButton.onClick.AddListener(() => GameController.Instance.ToMainMenu());
 
 			UpgradesScreen.gameObject.SetActive(false);
 		}
@@ -39,8 +41,11 @@ namespace Assets.Code
 			GameController.Instance.NewBattle();
 		}
 
-		public void Init()
+		public void Init(bool firstTime)
 		{
+			TitleText.gameObject.SetActive(!firstTime);
+			UpgradesButton.gameObject.SetActive(!firstTime);
+
 			UpgradesScreen.gameObject.SetActive(false);
 
 			int hoursLeft = GameController.Instance.Levels.Count - GameController.Instance.Level;
@@ -63,8 +68,10 @@ namespace Assets.Code
 
 				int r = UnityEngine.Random.Range(0, validAbilities.Count);
 				_shopAbilities.Add(validAbilities[r]);
-				validAbilities.RemoveAt(r);
+				validAbilities.Remove(validAbilities[r]);
 			}
+
+			_shopAbilities = _shopAbilities.Distinct().ToList();
 
 			foreach (var item in ShopItemsRoot.GetComponentsInChildren<UIShopItem>()) {
 				Destroy(item.gameObject);

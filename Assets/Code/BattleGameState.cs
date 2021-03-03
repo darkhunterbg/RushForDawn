@@ -54,15 +54,19 @@ namespace Assets.Code
 				EndTurn();
 			});
 			AbilitySelectedRoot.SetActive(false);
+
+
+			PlayerParty = PlayerRoot.transform.GetComponentsInChildren<Actor>().ToList();
+			EnemyParty = EnemeyRoot.transform.GetComponentsInChildren<Actor>(includeInactive: true).ToList();
+
+
+			foreach (var ability in AbiltyBar.GetComponentsInChildren<UIAbility>())
+				Destroy(ability.gameObject);
 		}
 
 		public void OnEnable()
 		{
-			PlayerParty = PlayerRoot.transform.GetComponentsInChildren<Actor>().ToList();
-			EnemyParty = EnemeyRoot.transform.GetComponentsInChildren<Actor>(includeInactive: true).ToList();
-
-			foreach (var ability in AbiltyBar.GetComponentsInChildren<UIAbility>())
-				Destroy(ability.gameObject);
+		
 		}
 
 
@@ -110,7 +114,7 @@ namespace Assets.Code
 				int onColumns = enemyPartyDef.Count - (i / 3) * 3;
 				if (onColumns > 3)
 					onColumns = 3;
-				float y = 2.75f; ;
+				float y = 0;
 
 				float off = 2.75f;
 
@@ -122,6 +126,9 @@ namespace Assets.Code
 				}
 
 				var p = Instantiate(def, EnemeyRoot.transform);
+
+				p.MaxHealth = (def.MaxHealth * (100 + GameController.Instance.GameDifficulty.EnemiesHealthModifier)) / 100;
+
 				p.transform.localPosition = new Vector3(i / 3 * 3f- 0.5f, (i % 3 - 1) * off + y, 0);
 				p.SetToMaxHP();
 				p.gameObject.SetActive(true);
@@ -199,7 +206,7 @@ namespace Assets.Code
 		public void OnActorDied(Actor actor)
 		{
 			if (EnemyParty.Contains(actor)) {
-				GameController.Instance.Scrap += actor.ScrapReward;
+				GameController.Instance.Scrap += (actor.ScrapReward * (100 + GameController.Instance.GameDifficulty.ScrapModifier) / 100);
 
 			}
 			else if(SelectedActor == actor) {
@@ -244,7 +251,7 @@ namespace Assets.Code
 					GameOverScreen.Victory = true;
 					GameOverScreen.gameObject.SetActive(true);
 				} else {
-					VictoryScreen.Init();
+					VictoryScreen.Init(false);
 					VictoryScreen.gameObject.SetActive(true);
 				}
 			}
@@ -415,6 +422,7 @@ namespace Assets.Code
 				a.Toggled = false;
 
 			SelectedActor?.SetSelectedState();
+
 		}
 
 		private void ToPlayerAbilitySelectedState(Ability ability)

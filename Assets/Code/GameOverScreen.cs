@@ -30,7 +30,7 @@ namespace Assets.Code
 
 			MainMenuButton.onClick.AddListener(() =>
 			{
-				GameController.Instance.NewGame();
+				GameController.Instance.ToMainMenu();
 			});
 		}
 

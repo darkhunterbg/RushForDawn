@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 8797702f8f32c954e9bc31b762ca4694, type: 3}
   Name: Titan Rage
-  Cost: 3
+  Cost: 2
   ScrapCost: 10
   Description: Gain {0} [Block]. Deal damage to a single enemy equal to double your
     [Block].
